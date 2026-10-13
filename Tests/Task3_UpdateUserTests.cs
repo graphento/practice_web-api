@@ -70,7 +70,7 @@ namespace Tests
             var createdUserUri = response.GetRequiredHeader("Location").SingleOrDefault();
             createdUserUri.Should().NotBeNullOrEmpty();
 
-            CheckUserCreated(createdUserId, createdUserUri, new
+            await CheckUserCreated(createdUserId, createdUserUri, new
             {
                 id = createdUserId,
                 login = "mjackson",

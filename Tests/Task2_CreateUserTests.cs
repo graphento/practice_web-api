@@ -29,12 +29,12 @@ namespace Tests
             response.StatusCode.Should().Be(HttpStatusCode.Created);
             response.ShouldHaveHeader("Content-Type", "application/json; charset=utf-8");
 
-            var createdUserId = response.ReadContentAsJson()["id"].Value<string>();
+            var createdUserId = response.ReadContentAsJson().Value<string>();
             createdUserId.Should().NotBeNullOrEmpty();
             var createdUserUri = response.GetRequiredHeader("Location").SingleOrDefault();
             createdUserUri.Should().NotBeNullOrEmpty();
 
-            CheckUserCreated(createdUserId, createdUserUri, new
+            await CheckUserCreated(createdUserId, createdUserUri, new
             {
                 id = createdUserId,
                 login = "mjackson",
@@ -122,7 +122,7 @@ namespace Tests
             var createdUserUri = response.GetRequiredHeader("Location").SingleOrDefault();
             createdUserUri.Should().NotBeNullOrEmpty();
 
-            CheckUserCreated(createdUserId, createdUserUri, new
+            await CheckUserCreated(createdUserId, createdUserUri, new
             {
                 id = createdUserId,
                 login = "anonymous",
